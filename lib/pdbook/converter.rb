@@ -101,11 +101,12 @@ module Pdbook
       text.gsub!('﹂', '」')
       text.gsub!('︽', '《')
       text.gsub!('︾', '》')
+      text.gsub!('｜', 'ー‎')
       text
     end
     
     def to_utf8(charset, text)
-      Iconv.conv("UTF-8//IGNORE", charset, text)      
+      Iconv.conv("UTF-8//IGNORE", charset, text)
     end  
   end
 end

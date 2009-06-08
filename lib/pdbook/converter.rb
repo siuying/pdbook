@@ -7,9 +7,7 @@ require 'logger'
 
 require "prawn/measurement_extensions"
 
-module PdbBook
-  VERSION = '0.1.0'
-
+module Pdbook
   class Converter
     def initialize(input, output, font = "#{Prawn::BASEDIR}/data/fonts/gkai00mp.ttf", options = {:page_size => "A4", :margin => 0.6.in, :compress => true})
       @input = input

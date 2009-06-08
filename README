@@ -1,0 +1,22 @@
+PDBook
+======
+
+Convert PDB (Palm Database) Ebook to PDF format.
+
+Specially handle document from haodoo.net.
+
+Usage:
+
+  Convert 356a.pdb to a PDF file:
+
+    pdbook 356a.pdb 356a.pdf
+
+  Convert 356a.pdb to a PDF file, using custom fonts:
+
+    pdbook 356a.pdb 356a.pdf "Arial Unicode.ttf"
+
+
+Enjoy!
+
+For comments, please contact siu [dot] ying [at] gmail [dot] com
+

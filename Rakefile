@@ -24,7 +24,7 @@ Rake::GemPackageTask.new(spec) do |pkg|
   pkg.gem_spec = spec
 end
 
-desc "Install the FullFeed as a gem"
+desc "Install the Pdbook as a gem"
 task :install => [:repackage] do
   sh %{gem install pkg/#{spec.name}-#{spec.version}}
 end

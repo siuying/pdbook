@@ -1,0 +1,14 @@
+#!/usr/bin/env ruby
+#!/usr/bin/env ruby
+require 'rubygems'
+require 'pdbook'
+
+if ARGV.size != 2 && ARGV.size != 3
+  puts "pdbook - Convert PDB Ebook to PDF"
+  puts "    pdbook <input-pdb-file> <output-pdf-file> [font-file]"
+
+else
+  PdbBook::Converter.new(ARGV[0], ARGV[1], ARGV[2])
+
+end
+

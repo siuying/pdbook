@@ -1,0 +1,6 @@
+History.txt
+Manifest.txt
+Rakefile
+lib/pdbook.rb
+lib/pdbook/converter.rb
+bin/pdbook

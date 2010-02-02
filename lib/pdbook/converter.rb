@@ -29,7 +29,7 @@ module Pdbook
         render_toc(doc, toc)
       
         # render content
-        doc.text_options.update(:wrap => :character, :size => 20, :spacing => 4)            
+        doc.text_options.update(:wrap => :character, :size => 24, :spacing => 8)            
         content.each do |record|
           render_content(doc, record.data)
         end
@@ -58,7 +58,7 @@ module Pdbook
     
       # print cover
       unless cover.nil?
-        doc.text_options.update(:wrap => :character, :size => 40, :spacing => 4)
+        doc.text_options.update(:wrap => :character, :size => 48, :spacing => 8)
         doc.bounding_box [doc.bounds.left, 2*doc.bounds.top/3], :width => doc.bounds.width do
           doc.text cover
         end
@@ -67,7 +67,7 @@ module Pdbook
     
       # print toc
       unless toc.nil?
-        doc.text_options.update(:wrap => :character, :size => 20, :spacing => 4)
+        doc.text_options.update(:wrap => :character, :size => 24, :spacing => 8)
         toc = toc.split("\e")      
         section_cnt = toc.shift.to_i
         if section_cnt == toc.size      
@@ -102,6 +102,8 @@ module Pdbook
       text.gsub!('︽', '《')
       text.gsub!('︾', '》')
       text.gsub!('｜', 'ー‎')
+      text.gsub!('︵', '（')
+      text.gsub!('︶', '）')
       text
     end
     

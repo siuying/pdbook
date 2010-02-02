@@ -15,9 +15,9 @@ module Pdbook
       @font = font
       @options = options
       @options[:page_size] = ENV["page_size"] if ENV["page_size"]
-      @options[:margin] = ENV["margin"] if ENV["margin"]
-      @options[:font_size] = ENV["font_size"].to_i if ENV["font_size"]
-      @options[:spacing] = ENV["spacing"].to_i if ENV["spacing"]
+      @options[:margin] = (ENV["margin"].to_f * 1.in) if ENV["margin"]
+      @options[:font_size] = ENV["font_size"].to_f if ENV["font_size"]
+      @options[:spacing] = ENV["spacing"].to_f if ENV["spacing"]
 
       @pdb = Palm::PDB.new(input)
       @log = Logger.new($STDOUT)
@@ -73,7 +73,7 @@ module Pdbook
       # print toc
       unless toc.nil?
         doc.text_options.update(:wrap => :character, :size => @options[:font_size], :spacing => @options[:spacing])
-        toc = toc.split("\e")      
+        toc = cleanup_content_text(toc).split("\e")      
         section_cnt = toc.shift.to_i
         if section_cnt == toc.size      
           @log.debug "Print TOC"
@@ -106,9 +106,15 @@ module Pdbook
       text.gsub!('﹂', '」')
       text.gsub!('︽', '《')
       text.gsub!('︾', '》')
-      text.gsub!('｜', 'ー‎')
+      text.gsub!('｜', '—')
       text.gsub!('︵', '（')
       text.gsub!('︶', '）')
+      text.gsub!('﹃', '『')
+      text.gsub!('﹄', '』')
+      text.gsub!('︹', '〔')
+      text.gsub!('︺', '〕')
+      text.gsub!('︻', '【')
+      text.gsub!('︼', '】')      
       text
     end
     

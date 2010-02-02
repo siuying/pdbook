@@ -4,5 +4,5 @@ $:.unshift(File.dirname(__FILE__)) unless
 require 'pdbook/converter'
 
 module Pdbook
-  VERSION = '0.1.9'
+  VERSION = '0.1.10'
 end

@@ -9,7 +9,7 @@ require "prawn/measurement_extensions"
 
 module Pdbook
   class Converter
-    def initialize(input, output, font = "#{Prawn::BASEDIR}/data/fonts/gkai00mp.ttf", options = {:page_size => "A4", :margin => 0.6.in, :font_size => 20, :spacing => 10, :compress => true, :encoding => "BIG5-HKSCS"})
+    def initialize(input, output, font = "#{Prawn::BASEDIR}/data/fonts/gkai00mp.ttf", options = {:page_size => "A4", :margin => 0.6.in, :font_size => 20, :spacing => 10, :compress => true})
       @input = input
       @output = output
       @font = font
@@ -19,6 +19,7 @@ module Pdbook
       @options[:font_size] = ENV["font_size"].to_f if ENV["font_size"]
       @options[:spacing] = ENV["spacing"].to_f if ENV["spacing"]
       @options[:encoding] = ENV["encoding"].to_f if ENV["encoding"]
+
       @pdb = Palm::PDB.new(input)
       @log = Logger.new($STDOUT)
     end

@@ -9,11 +9,16 @@ require "prawn/measurement_extensions"
 
 module Pdbook
   class Converter
-    def initialize(input, output, font = "#{Prawn::BASEDIR}/data/fonts/gkai00mp.ttf", options = {:page_size => "A4", :margin => 0.6.in, :compress => true})
+    def initialize(input, output, font = "#{Prawn::BASEDIR}/data/fonts/gkai00mp.ttf", options = {:page_size => "A4", :margin => 0.6.in, :font_size => 20, :spacing => 10, :compress => true})
       @input = input
       @output = output
       @font = font
       @options = options
+      @options[:page_size] = ENV["page_size"] if ENV["page_size"]
+      @options[:margin] = ENV["margin"] if ENV["margin"]
+      @options[:font_size] = ENV["font_size"].to_i if ENV["font_size"]
+      @options[:spacing] = ENV["spacing"].to_i if ENV["spacing"]
+
       @pdb = Palm::PDB.new(input)
       @log = Logger.new($STDOUT)
     end
@@ -29,7 +34,7 @@ module Pdbook
         render_toc(doc, toc)
       
         # render content
-        doc.text_options.update(:wrap => :character, :size => 24, :spacing => 8)            
+        doc.text_options.update(:wrap => :character, :size => @options[:font_size], :spacing => @options[:spacing])            
         content.each do |record|
           render_content(doc, record.data)
         end
@@ -58,7 +63,7 @@ module Pdbook
     
       # print cover
       unless cover.nil?
-        doc.text_options.update(:wrap => :character, :size => 48, :spacing => 8)
+        doc.text_options.update(:wrap => :character, :size => @options[:font_size]*2, :spacing => @options[:spacing] * 2)
         doc.bounding_box [doc.bounds.left, 2*doc.bounds.top/3], :width => doc.bounds.width do
           doc.text cover
         end
@@ -67,7 +72,7 @@ module Pdbook
     
       # print toc
       unless toc.nil?
-        doc.text_options.update(:wrap => :character, :size => 24, :spacing => 8)
+        doc.text_options.update(:wrap => :character, :size => @options[:font_size], :spacing => @options[:spacing])
         toc = toc.split("\e")      
         section_cnt = toc.shift.to_i
         if section_cnt == toc.size      
